@@ -1,10 +1,16 @@
-# Project Status MVP
+# Project Status
 
-Recipe Finder is currently in the proccess of moving the databse to Mongodb and parsing pluralization on ingredients/recipes
+Recipe Finder is currently in the process of rebuilding the API
 
 # recipeFinder
 
 Recipe Finder is web application allowing you to keep track of ingredients you have and display all the possible recipes you can try.
+
+## STACK
+
+FRONTEND: React
+BACKEND: Flask
+DATABASE: PostgreSQL
 
 ## Installation
 
