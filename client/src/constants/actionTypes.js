@@ -1,0 +1,10 @@
+export const AUTH = "AUTH";
+export const LOGOUT = "LOGOUT"
+export const GET_ALL = "GET_ALL"
+export const CREATE = "CREATE"
+export const GET_ITEM = "GET_ITEM"
+export const EDIT = "EDIT"
+export const LIKE = "LIKE"
+export const DISLIKE = "DISLIKE"
+export const SAVE = "SAVE"
+export const DELETE = "DELETE"
