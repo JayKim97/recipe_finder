@@ -94,3 +94,16 @@ def save_recipe(current_user, recipe_id):
     recipe.update_saved(current_user)
     db.session.commit()
     return recipe_schema.jsonify(recipe), 201
+
+
+@recipes.delete('recipes/<int:recipe_id>')
+@token_required
+def delete_recipe(current_user, recipe_id):
+    recipe = Recipe.query.get(recipe_id)
+    if not recipe:
+        return jsonify({'message': 'the recipe does not exist'}), 400
+    if current_user != recipe.creator:
+        return jsonify({'message': 'You do not have permission to edit this post'}), 401
+    db.session.delete(recipe)
+    db.session.commit()
+    return recipe_schema.jsonify(recipe)
