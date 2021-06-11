@@ -9,7 +9,9 @@ Recipe Finder is web application allowing you to keep track of ingredients you h
 ## STACK
 
 FRONTEND: React
+
 BACKEND: Flask
+
 DATABASE: PostgreSQL
 
 ## Installation
