@@ -11,4 +11,4 @@ def get_token(user, secret):
 
 
 def user_token_json(user, token):
-    return json.dumps({"result": user.json, "toke": token})
+    return json.dumps({"result": user.json, "token": token})
