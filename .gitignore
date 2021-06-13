@@ -1,6 +1,6 @@
 *.env
 *Pipfile.lock
-
+*/__pycache__/
 
 client/node_modules
 client/.pnp

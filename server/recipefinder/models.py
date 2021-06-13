@@ -24,11 +24,23 @@ categories = db.Table('categories',
                                 db.ForeignKey('recipe.id')),
                       db.Column('category', db.Integer, db.ForeignKey('category.id')))
 
+ingredients = db.Table('ingredients', db.Column(
+    'recipe_id', db.Integer, db.ForeignKey('recipe.id')),
+    db.Column('ingredient', db.Integer, db.ForeignKey('ingredient.id')))
+
+
+class Ingredient(db.Model):
+    __tablename__ = "ingredient"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), nullable=False, unique=True)
+    recipe_tags = db.relationship(
+        'Recipe', secondary=ingredients, backref=db.backref('ingredients', lazy='dynamic'))
+
 
 class Tag(db.Model):
     __tablename__ = 'tag'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(25), nullable=False)
+    name = db.Column(db.String(25), nullable=False, unique=True)
     recipe_tags = db.relationship(
         'Recipe', secondary=tags, backref=db.backref('tags', lazy='dynamic'))
 
@@ -38,7 +50,7 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25), nullable=False)
     recipe_category = db.relationship(
-        'Recipe', secondary=categories, backref=db.backref('category', lazy='dynamic'))
+        'Recipe', secondary=categories, backref=db.backref('categories', lazy='dynamic'))
 
 
 class User(db.Model):
