@@ -29,12 +29,19 @@ ingredients = db.Table('ingredients', db.Column(
     db.Column('ingredient', db.Integer, db.ForeignKey('ingredient.id')))
 
 
+cart = db.Table('cart',
+                db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+                db.Column('ingredient', db.Integer, db.ForeignKey('ingredient.id')))
+
+
 class Ingredient(db.Model):
     __tablename__ = "ingredient"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False, unique=True)
-    recipe_tags = db.relationship(
+    recipe_ings = db.relationship(
         'Recipe', secondary=ingredients, backref=db.backref('ingredients', lazy='dynamic'))
+    user_cart = db.relationship(
+        'User', secondary=cart, backref=db.backref('ingredients', lazy='dynamic'))
 
 
 class Tag(db.Model):
@@ -85,11 +92,14 @@ class Recipe(db.Model):
     link = db.Column(db.String())
     num_likes = db.Column(db.Integer, nullable=False, default=0)
     num_dislike = db.Column(db.Integer, nullable=False, default=0)
-    rating = db.Column(db.Float, nullable=False, default=0)
+    # rating = db.Column(db.Float, nullable=False, default=0)
     instruction = db.Column(db.Text)
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # tags_string = db.Column(db.String())
+    # ings_string = db.Column(db.String())
+    # category_string = db.Column(db.String())
 
     def update_like(self, current_user):
         already_liked = self.check_liked(current_user.id)
@@ -149,7 +159,8 @@ class Recipe(db.Model):
             self.saved_users.append(current_user)
 
     def check_saved(self, user_id):
-        saved = db.session.query(saves=user_id).first()
+        saved = db.session.query(saves).filter_by(
+            recipe_id=self.id, user_id=user_id).first()
         if saved:
             return True
         return False
@@ -158,4 +169,4 @@ class Recipe(db.Model):
 class RecipeSchema(ma.Schema):
     class Meta:
         fields = ('id', 'title', 'link', 'num_likes',
-                  'num_dislike', 'rating', 'instruction', 'created_at', 'user_id')
+                  'num_dislike', 'instruction', 'created_at', 'creator.name')
