@@ -5,18 +5,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from recipefinder.users.utils import get_token, user_token_json
 import jwt
 import datetime
+from recipefinder.globalutils import token_required
 
 users = Blueprint('users', __name__)
 user_schema = UserSchema()
-
-# id
-# email
-# name
-# password
-# liked_recipes
-# disliked_recipes
-# recipes
-# saved_recipes
 
 
 @users.post('/user/signup')
@@ -47,3 +39,21 @@ def user_login():
         return jsonify({'message': 'verification failed'}), 401
     token = get_token(user, current_app.config['SECRET_KEY'])
     return user_token_json(user_schema.jsonify(user), token), 200
+
+
+@users.get('/user/liked')
+@token_required
+def get_user_liked(current_user):
+    result = []
+    for rec in current_user.liked_recipes:
+        result.append(rec.id)
+    return jsonify(result), 200
+
+
+@users.get('/user/saved')
+@token_required
+def get_user_saved(current_user):
+    result = []
+    for rec in current_user.saved_recipes:
+        result.append(rec.id)
+    return jsonify(result), 200
