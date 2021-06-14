@@ -42,7 +42,7 @@ Features
   <li>User Authentication</li>
   <li>Recipe CRUD</lli>
   <li>User save, like, dislike feature</li>
-<ul>
+</ul>
 
 WIP
 
