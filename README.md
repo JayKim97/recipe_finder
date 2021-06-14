@@ -1,6 +1,6 @@
 # Project Status
 
-Recipe Finder is currently in the process of rebuilding the API
+Recipe Finder is currently in the process of rebuilding the API using flask factory design pattern.
 
 # recipeFinder
 
@@ -19,11 +19,11 @@ DATABASE: PostgreSQL
 requirements [pipenv](https://pypi.org/project/pipenv/) & python3
 
 ```bash
-git clone https://github.com/JayKim97/recipeFinder.git
-cd recipeFinder/ocr_server
+git clone https://github.com/JayKim97/recipe_finder.git
+cd recipeFinder/server
 pipenv shell
 pipenv install --ignore-pipfile
-python3 app.py
+python3 run.py
 ```
 
 ## Current Features
@@ -39,8 +39,16 @@ Recipe Collections
 Features
 
 <ul>
-  <li>Recipt image recognition for grocery</li>
-  <li>Recipe search using user ingredients</li>
+  <li>User Authentication</li>
+  <li>Recipe CRUD</lli>
+  <li>User save, like, dislike feature</li>
+<ul>
+
+WIP
+
+<ul>
+  <li>Recipt image recognition for grocery refactoring from old version of the recipe finder</li>
+  <li>Recipe search using user ingredients || tags || category</li>
 </ul>
 
 ## Project Status
