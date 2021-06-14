@@ -49,6 +49,8 @@ WIP
 <ul>
   <li>Recipt image recognition for grocery refactoring from old version of the recipe finder</li>
   <li>Recipe search using user ingredients || tags || category</li>
+  <li>Database migration of all the recipe datas</li>
+  <li>Recommendation engine from user likes</li>
 </ul>
 
 ## Project Status
