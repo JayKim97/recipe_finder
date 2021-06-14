@@ -55,7 +55,7 @@ WIP
 
 ## Project Status
 
-Development of recipe finder is currently put on hold
+Development of recipe finder is currently used to practie relational database and SQLalchemy
 
 ## Contributing
 
