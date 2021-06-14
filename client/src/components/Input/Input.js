@@ -1,7 +1,7 @@
 import { Grid, TextField } from '@material-ui/core'
 import React from 'react'
 
-const Input = ({name, handleChange, label, half, type, value, row, multiline, optional}) => {
+const Input = ({name, handleChange, label, half, type, value, row}) => {
   return (
     <Grid item xs={12} sm={half? 6:12}>
       <TextField
@@ -9,10 +9,9 @@ const Input = ({name, handleChange, label, half, type, value, row, multiline, op
         onChange={handleChange}
         label={label}
         fullWidth
-        required={optional ? undefined : 'enabled'}
+        required
         value={value? value : undefined}
         type={type}
-        multiline={multiline? 'enabled': undefined}
         rows={row}
       />
     </Grid>

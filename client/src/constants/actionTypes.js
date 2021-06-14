@@ -8,3 +8,6 @@ export const LIKE = "LIKE"
 export const DISLIKE = "DISLIKE"
 export const SAVE = "SAVE"
 export const DELETE = "DELETE"
+export const SET_CURRENT_ID = 'SET_CURRENT_ID'
+export const CURRENT_USER_SAVED = 'CURRENT_USER_SAVED'
+export const CURRENT_USER_LIKED = 'CURRENT_USER_LIKED'

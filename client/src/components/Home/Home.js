@@ -1,20 +1,22 @@
-import { Grow } from '@material-ui/core'
+import { Grow, Container } from '@material-ui/core'
 import React, {useEffect} from 'react'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {getRecipes} from '../../actions/recipes'
+import Recipes from '../Recipes/Recipes'
 
 
 const Home = () => {
-  const recipes = useSelector(state => state.recipes)
   const dispatch = useDispatch()
+
   useEffect(() => {
-    dispatch(getRecipes())
-    console.log(recipes)
-  }, [])
+    dispatch(getRecipes());
+  }, [dispatch]);
 
   return (
     <Grow in>
-      <div>home</div>
+      <Container>
+        <Recipes/>
+      </Container>
     </Grow>
   )
 }

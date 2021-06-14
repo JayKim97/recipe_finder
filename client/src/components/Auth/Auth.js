@@ -4,7 +4,7 @@ import Input from '../Input/Input'
 import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {signup,signin} from '../../actions/auth'
-
+import {getUserLiked, getUserSaved} from '../../actions/currentUser'
 
 const Auth = () => {
   const initialState = {
@@ -23,15 +23,19 @@ const Auth = () => {
   const handleSubmit = (e) =>{
     e.preventDefault();
     if(isSignUp){
-      dispatch(signup(formData, history))
+      const error = dispatch(signup(formData, history))
+      console.log(error)
     } else {
       dispatch(signin(formData, history))
+      .then(dispatch(getUserLiked()))
+      .then(dispatch(getUserSaved())) 
     }
   }
 
   const handleChange = (e) =>{
     setFormData({...formData, [e.target.name]: e.target.value})
   }
+
 
   const switchMode = () =>{
     setIsSignUp((prevState) => !prevState)

@@ -7,7 +7,7 @@ export const signup = (formData, history) => async (dispatch) => {
     dispatch({type: AUTH, payload: data})
     history.push("/")
   } catch (error) {
-    console.log(error)
+    return error.response.data.message
   }
 }
 
@@ -17,7 +17,7 @@ export const signin = (formData, history) => async (dispatch) =>{
     dispatch({type: AUTH, payload:data})
     history.push("/")
   } catch (error) {
-    console.log(error)
+    console.log(error.response.data.message)
   }
 }
 

@@ -42,7 +42,7 @@ export const likeRecipe = (id) => async(dispatch)=>{
     const {data} = await api.likeRecipe(id)
     dispatch({type: LIKE, payload: data})
   } catch (error) {
-    console.log(error)
+    console.log(error.message)
   }
 }
 

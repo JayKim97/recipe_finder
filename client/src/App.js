@@ -15,6 +15,7 @@ const App = () => {
           <Route path="/" exact component={Home}/>
           <Route path="/auth" exact component={Auth}/>
           <Route path="/addrecipe" exact component={Form}/>
+          <Route path="/edit" exact component={Form}/>
         </Switch>
       </Container>
     </BrowserRouter>

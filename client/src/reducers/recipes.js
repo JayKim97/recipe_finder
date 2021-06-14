@@ -11,7 +11,10 @@ const recipesReducers = (recipes=[], action) => {
     case EDIT:
     case LIKE:
     case DISLIKE:
-      return recipes.map((recipe)=> recipe.id===action.payload.id ? action.paylod: recipe);
+      // recipes.map((recipe)=> recipe.id===action.payload.id ? action.paylod : recipe);
+      // return recipes
+      return recipes.map((recipe)=> recipe.id===action.payload.id ? action.payload : recipe);
+
     case SAVE:
       return recipes
     case DELETE:

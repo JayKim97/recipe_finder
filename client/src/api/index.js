@@ -22,3 +22,6 @@ export const likeRecipe = (id) => API.patch(`/recipes/${id}/like`);
 export const dislikeRecipe = (id) => API.patch(`/recipes/${id}/dislike`);
 export const saveRecipe = (id) => API.patch(`/recipes/${id}/save`);
 export const deleteRecipe = (id) => API.delete(`/recipes/${id}`);
+
+export const getUserLiked = () => API.get('/user/liked');
+export const getUserSaved = () => API.get('/user/saved');
