@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request, current_app
 from recipefinder import db
 from recipefinder.models import Recipe, RecipeSchema
 from recipefinder.globalutils import token_required
-from .utils import init_Category, init_tags, init_ingredient, exist_checker
+from .utils import init_Category, init_tags, init_ingredient, exist_checker, recipe_jsonify
 
 recipes = Blueprint('recipes', __name__)
 
@@ -23,8 +23,12 @@ def get_all_recipes():
     page = request.args.get('page', 1, type=int)
     # print(page)
     recipes = Recipe.query.order_by(
-        Recipe.created_at.desc()).paginate(per_page=1, page=page)
-    result = recipes_schema.dump(recipes.items)
+        Recipe.created_at.desc()).paginate(per_page=10, page=page)
+    result = []
+    for recipe in recipes.items:
+        result.append(recipe_jsonify(recipe))
+    # result = recipes_schema.dump(recipes.items)
+    # return jsonify(result), 200
     return jsonify(result), 200
 
 
@@ -53,7 +57,7 @@ def create_recipes(current_user):
         print(e)
         return jsonify({'message': 'Error creating recipe'}), 400
     db.session.flush()
-    return recipe_schema.jsonify(new_recipe)
+    return jsonify(recipe_jsonify(new_recipe))
 
 
 @recipes.get('/recipes/<int:recipe_id>')
@@ -61,7 +65,7 @@ def get_recipe(recipe_id):
     recipe = Recipe.query.get(recipe_id)
     if not recipe:
         return jsonify({'message': 'the recipe does not exist'}), 400
-    return recipe_schema.jsonify(recipe)
+    return jsonify(recipe_jsonify(recipe))
 
 
 @recipes.patch('/recipes/<int:recipe_id>')
@@ -79,7 +83,7 @@ def edit_recipe(current_user, recipe_id):
     recipe.link = data['link']
     recipe.instruction = data['instruction']
     db.session.commit()
-    return recipe_schema.jsonify(recipe)
+    return jsonify(recipe_jsonify(recipe))
 
 
 @recipes.patch('/recipes/<int:recipe_id>/like')
@@ -90,7 +94,7 @@ def like_recipe(current_user, recipe_id):
         return jsonify({'message': 'the recipe does not exist'}), 400
     recipe.update_like(current_user)
     db.session.commit()
-    return recipe_schema.jsonify(recipe), 201
+    return jsonify(recipe_jsonify(recipe)), 201
 
 
 @recipes.patch('/recipes/<int:recipe_id>/dislike')
@@ -101,7 +105,7 @@ def dislike_recipe(current_user, recipe_id):
         return jsonify({'message': 'the recipe does not exist'}), 400
     recipe.update_dislike(current_user)
     db.session.commit()
-    return recipe_schema.jsonify(recipe), 201
+    return jsonify(recipe_jsonify(recipe)), 201
 
 
 @recipes.patch('/recipes/<int:recipe_id>/save')
@@ -112,7 +116,7 @@ def save_recipe(current_user, recipe_id):
         return jsonify({'message': 'the recipe does not exist'}), 400
     recipe.update_saved(current_user)
     db.session.commit()
-    return recipe_schema.jsonify(recipe), 201
+    return jsonify(recipe_jsonify(recipe)), 201
 
 
 @recipes.delete('/recipes/<int:recipe_id>')
@@ -125,7 +129,7 @@ def delete_recipe(current_user, recipe_id):
         return jsonify({'message': 'You do not have permission to edit this post'}), 401
     db.session.delete(recipe)
     db.session.commit()
-    return recipe_schema.jsonify(recipe)
+    return jsonify(recipe_jsonify(recipe))
 
 
 @recipes.patch("/recipes/<int:recipe_id>/add_ingredient")

@@ -1,5 +1,6 @@
 from recipefinder import db
 from recipefinder.models import Tag, Category, Ingredient
+from flask import jsonify
 
 
 def init_tags(tags_str):
@@ -56,3 +57,19 @@ def exist_checker(type, to_check):
     else:
         model = Ingredient
     return True if model.query.filter_by(name=to_check).first() else False
+
+
+def recipe_jsonify(recipe):
+    return {
+        "created_at": recipe.created_at,
+        "creator_name": recipe.creator.name,
+        "creator_id": recipe.creator.id,
+        "instruction": recipe.instruction,
+        "id": recipe.id,
+        "num_dislike": recipe.num_dislike,
+        "num_likes": recipe.num_likes,
+        "title": recipe.title,
+        "link": recipe.link}
+    # "tags": recipe.tags_string.split(", "),
+    # "ingredients": recipe.ings_string.split(", "),
+    # "categories": recipe.category_string.split(", ")}
